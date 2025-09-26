@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_character_inventories",
+  "info": {
+    "displayName": "Inventory",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "Money": {
+      "type": "integer"
+    },
+    "Experience": {
+      "type": "integer"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::item.item"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_bonus_attacks",
+  "info": {
+    "displayName": "Dice roll"
+  },
+  "options": {},
+  "attributes": {
+    "dice": {
+      "type": "string"
+    },
+    "multiplier": {
+      "type": "integer"
+    },
+    "constant": {
+      "type": "integer"
+    },
+    "Stat": {
+      "type": "enumeration",
+      "enum": [
+        "force",
+        "agility",
+        "luck",
+        "vigilance",
+        "constitution",
+        "resistance",
+        "faith",
+        "intelligence"
+      ]
+    }
+  },
+  "config": {}
+}

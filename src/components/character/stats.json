@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_character_stats",
+  "info": {
+    "displayName": "Stats",
+    "icon": "connector"
+  },
+  "options": {},
+  "attributes": {
+    "pvmax": {
+      "type": "integer",
+      "required": false,
+      "default": 0
+    },
+    "force": {
+      "type": "integer"
+    },
+    "agility": {
+      "type": "integer"
+    },
+    "luck": {
+      "type": "integer"
+    },
+    "vigilance": {
+      "type": "integer"
+    },
+    "constitution": {
+      "type": "integer"
+    },
+    "resistance": {
+      "type": "integer"
+    },
+    "faith": {
+      "type": "integer"
+    },
+    "mental": {
+      "type": "integer"
+    },
+    "madness": {
+      "type": "integer"
+    },
+    "intelligence": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

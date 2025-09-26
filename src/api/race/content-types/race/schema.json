@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "races",
+  "info": {
+    "singularName": "race",
+    "pluralName": "races",
+    "displayName": "Race"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Passive": {
+      "type": "richtext"
+    },
+    "Buff": {
+      "type": "component",
+      "component": "character.stats",
+      "repeatable": false
+    },
+    "competences": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::competence.competence",
+      "mappedBy": "races"
+    },
+    "Lore": {
+      "type": "richtext"
+    }
+  }
+}
