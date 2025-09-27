@@ -18,3 +18,32 @@ export default {
    */
   bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
 };
+
+module.exports = {
+  register({ strapi }) {
+    // Ici on peut exécuter du code AVANT que Strapi démarre
+  },
+
+  bootstrap({ strapi }) {
+    // Ici, Strapi est démarré
+    const io = require("socket.io")(strapi.server.httpServer, {
+      cors: {
+        origin: "http://localhost:3000", 
+        methods: ["GET", "POST"] 
+      },
+    });
+
+    io.on("connection", (socket) => {
+      console.log("🔌 Un joueur vient de se connecter :", socket.id);
+
+      socket.on("ping-test", (msg) => {
+        console.log("📩 Message reçu du front :", msg);
+
+        // On peut renvoyer une réponse
+        socket.emit("pong-test", "Bien reçu !");
+      });
+    });
+
+    strapi.io = io; // on stocke l’instance pour la réutiliser ailleurs
+  },
+};
