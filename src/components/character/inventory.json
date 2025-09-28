@@ -6,10 +6,10 @@
   },
   "options": {},
   "attributes": {
-    "Money": {
+    "money": {
       "type": "integer"
     },
-    "Experience": {
+    "experience": {
       "type": "integer"
     },
     "items": {

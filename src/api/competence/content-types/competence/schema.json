@@ -11,17 +11,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Description": {
+    "description": {
       "type": "richtext"
     },
-    "Passive": {
+    "passive": {
       "type": "boolean",
       "default": false
     },
-    "NumberOfTurn": {
+    "numberOfTurn": {
       "type": "integer",
       "conditions": {
         "visible": {
@@ -34,12 +34,12 @@
         }
       }
     },
-    "Buff": {
+    "buff": {
       "type": "component",
       "component": "character.stats",
       "repeatable": false
     },
-    "DiceRoll": {
+    "diceRoll": {
       "type": "component",
       "component": "bonus.attack",
       "repeatable": true

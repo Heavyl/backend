@@ -9,7 +9,7 @@ export interface BonusAttack extends Struct.ComponentSchema {
     constant: Schema.Attribute.Integer;
     dice: Schema.Attribute.String;
     multiplier: Schema.Attribute.Integer;
-    Stat: Schema.Attribute.Enumeration<
+    statsRoll: Schema.Attribute.Enumeration<
       [
         'force',
         'agility',
@@ -39,9 +39,9 @@ export interface CharacterInventory extends Struct.ComponentSchema {
     icon: 'grid';
   };
   attributes: {
-    Experience: Schema.Attribute.Integer;
+    experience: Schema.Attribute.Integer;
     items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
-    Money: Schema.Attribute.Integer;
+    money: Schema.Attribute.Integer;
   };
 }
 

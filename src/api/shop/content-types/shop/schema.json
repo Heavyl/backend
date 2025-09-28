@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shops",
+  "info": {
+    "singularName": "shop",
+    "pluralName": "shops",
+    "displayName": "Shops"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::item.item",
+      "mappedBy": "shops"
+    },
+    "worlds": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::world.world",
+      "inversedBy": "shops"
+    }
+  }
+}

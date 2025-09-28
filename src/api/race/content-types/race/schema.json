@@ -4,20 +4,20 @@
   "info": {
     "singularName": "race",
     "pluralName": "races",
-    "displayName": "Race"
+    "displayName": "Races"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Passive": {
+    "passive": {
       "type": "richtext"
     },
-    "Buff": {
+    "buff": {
       "type": "component",
       "component": "character.stats",
       "repeatable": false
@@ -28,7 +28,7 @@
       "target": "api::competence.competence",
       "mappedBy": "races"
     },
-    "Lore": {
+    "lore": {
       "type": "richtext"
     }
   }

@@ -14,7 +14,7 @@
     "constant": {
       "type": "integer"
     },
-    "Stat": {
+    "statsRoll": {
       "type": "enumeration",
       "enum": [
         "force",

@@ -33,12 +33,12 @@
       "component": "character.stats",
       "repeatable": false
     },
-    "Attack": {
+    "attack": {
       "type": "component",
       "component": "bonus.attack",
       "repeatable": false
     },
-    "Buff": {
+    "buff": {
       "type": "component",
       "component": "character.stats",
       "repeatable": false
@@ -50,6 +50,12 @@
         "images",
         "files"
       ]
+    },
+    "shops": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::shop.shop",
+      "inversedBy": "items"
     }
   }
 }

@@ -478,7 +478,7 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Bonus: Schema.Attribute.Component<'character.stats', false>;
+    bonus: Schema.Attribute.Component<'character.stats', false>;
     competences: Schema.Attribute.Relation<
       'oneToMany',
       'api::competence.competence'
@@ -486,21 +486,23 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    CurrentLife: Schema.Attribute.Integer;
-    Description: Schema.Attribute.RichText;
-    Inventory: Schema.Attribute.Component<'character.inventory', false>;
+    currentLife: Schema.Attribute.Integer;
+    description: Schema.Attribute.RichText;
+    game: Schema.Attribute.Relation<'oneToOne', 'api::game.game'>;
+    inventory: Schema.Attribute.Component<'character.inventory', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::character.character'
     > &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
-    Picture: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
+    picture: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    player: Schema.Attribute.Relation<'oneToOne', 'api::player.player'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'oneToOne', 'api::race.race'>;
-    Stats: Schema.Attribute.Component<'character.stats', false>;
-    Type: Schema.Attribute.Enumeration<['player', 'pnj', 'monster']>;
+    stats: Schema.Attribute.Component<'character.stats', false>;
+    type: Schema.Attribute.Enumeration<['player', 'pnj', 'monster']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -518,23 +520,49 @@ export interface ApiCompetenceCompetence extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Buff: Schema.Attribute.Component<'character.stats', false>;
+    buff: Schema.Attribute.Component<'character.stats', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Description: Schema.Attribute.RichText;
-    DiceRoll: Schema.Attribute.Component<'bonus.attack', true>;
+    description: Schema.Attribute.RichText;
+    diceRoll: Schema.Attribute.Component<'bonus.attack', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::competence.competence'
     > &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
-    NumberOfTurn: Schema.Attribute.Integer;
-    Passive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    name: Schema.Attribute.String;
+    numberOfTurn: Schema.Attribute.Integer;
+    passive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     races: Schema.Attribute.Relation<'manyToMany', 'api::race.race'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGameGame extends Struct.CollectionTypeSchema {
+  collectionName: 'games';
+  info: {
+    displayName: 'Game';
+    pluralName: 'games';
+    singularName: 'game';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::game.game'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    players: Schema.Attribute.Relation<'manyToMany', 'api::player.player'>;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -552,8 +580,8 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Attack: Schema.Attribute.Component<'bonus.attack', false>;
-    Buff: Schema.Attribute.Component<'character.stats', false>;
+    attack: Schema.Attribute.Component<'bonus.attack', false>;
+    buff: Schema.Attribute.Component<'character.stats', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -566,7 +594,37 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     requirement: Schema.Attribute.Component<'character.stats', false>;
+    shops: Schema.Attribute.Relation<'manyToMany', 'api::shop.shop'>;
     type: Schema.Attribute.Enumeration<['weapon', 'armor', 'consumable']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPlayerPlayer extends Struct.CollectionTypeSchema {
+  collectionName: 'players';
+  info: {
+    displayName: 'Players';
+    pluralName: 'players';
+    singularName: 'player';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    games: Schema.Attribute.Relation<'manyToMany', 'api::game.game'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::player.player'
+    > &
+      Schema.Attribute.Private;
+    pseudo: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -576,7 +634,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
 export interface ApiRaceRace extends Struct.CollectionTypeSchema {
   collectionName: 'races';
   info: {
-    displayName: 'Race';
+    displayName: 'Races';
     pluralName: 'races';
     singularName: 'race';
   };
@@ -584,7 +642,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Buff: Schema.Attribute.Component<'character.stats', false>;
+    buff: Schema.Attribute.Component<'character.stats', false>;
     competences: Schema.Attribute.Relation<
       'manyToMany',
       'api::competence.competence'
@@ -595,10 +653,63 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::race.race'> &
       Schema.Attribute.Private;
-    Lore: Schema.Attribute.RichText;
-    Name: Schema.Attribute.String;
-    Passive: Schema.Attribute.RichText;
+    lore: Schema.Attribute.RichText;
+    name: Schema.Attribute.String;
+    passive: Schema.Attribute.RichText;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiShopShop extends Struct.CollectionTypeSchema {
+  collectionName: 'shops';
+  info: {
+    displayName: 'Shops';
+    pluralName: 'shops';
+    singularName: 'shop';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    items: Schema.Attribute.Relation<'manyToMany', 'api::item.item'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::shop.shop'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    worlds: Schema.Attribute.Relation<'manyToMany', 'api::world.world'>;
+  };
+}
+
+export interface ApiWorldWorld extends Struct.CollectionTypeSchema {
+  collectionName: 'worlds';
+  info: {
+    displayName: 'World';
+    pluralName: 'worlds';
+    singularName: 'world';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::world.world'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    shops: Schema.Attribute.Relation<'manyToMany', 'api::shop.shop'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1060,7 +1171,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1118,8 +1228,12 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::character.character': ApiCharacterCharacter;
       'api::competence.competence': ApiCompetenceCompetence;
+      'api::game.game': ApiGameGame;
       'api::item.item': ApiItemItem;
+      'api::player.player': ApiPlayerPlayer;
       'api::race.race': ApiRaceRace;
+      'api::shop.shop': ApiShopShop;
+      'api::world.world': ApiWorldWorld;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

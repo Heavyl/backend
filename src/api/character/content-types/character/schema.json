@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Picture": {
+    "picture": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
@@ -21,7 +21,7 @@
         "audios"
       ]
     },
-    "Type": {
+    "type": {
       "type": "enumeration",
       "enum": [
         "player",
@@ -29,7 +29,7 @@
         "monster"
       ]
     },
-    "Name": {
+    "name": {
       "type": "string"
     },
     "race": {
@@ -37,18 +37,18 @@
       "relation": "oneToOne",
       "target": "api::race.race"
     },
-    "Description": {
+    "description": {
       "type": "richtext"
     },
-    "CurrentLife": {
+    "currentLife": {
       "type": "integer"
     },
-    "Stats": {
+    "stats": {
       "type": "component",
       "component": "character.stats",
       "repeatable": false
     },
-    "Bonus": {
+    "bonus": {
       "type": "component",
       "component": "character.stats",
       "repeatable": false
@@ -58,10 +58,20 @@
       "relation": "oneToMany",
       "target": "api::competence.competence"
     },
-    "Inventory": {
+    "inventory": {
       "type": "component",
       "component": "character.inventory",
       "repeatable": false
+    },
+    "game": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::game.game"
+    },
+    "player": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::player.player"
     }
   }
 }
